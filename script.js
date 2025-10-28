@@ -59,4 +59,30 @@ Is the same as doing...
  checkIn(flight, lukmon);
 */
 
-//-----FIRST CLASS & HIGHER ORDER FUNCTION
+//-----FUNCTION ACCEPTINFG CALLBACK FUNCTIONS--------
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
+
+// Higher-order function
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('Jvascript is the best!', upperFirstWord);
+
+transformer('Jvascript is the best!', oneWord);
+
+//JS uses callback all the timegit
+const high5 = function () {
+  console.log('👏');
+};
+document.body.addEventListener('click', high5);
