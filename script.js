@@ -57,7 +57,6 @@ Is the same as doing...
 
  newPassport(lukmon);
  checkIn(flight, lukmon);
-*/
 
 //-----FUNCTION ACCEPTINFG CALLBACK FUNCTIONS--------
 
@@ -86,3 +85,81 @@ const high5 = function () {
   console.log('👏');
 };
 document.body.addEventListener('click', high5);
+
+
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+greeterHey('Stephen');
+
+greet('Hello')('Jonas');
+
+// Challenge
+const greets = greeting => name => console.log(`${greeting} ${name}`);
+
+const greeter = greet('Hey');
+greeter('Jamiu');
+greeter('Samuel');
+
+greet('Hi')('Jonatharn');
+*/
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  //book:function(){}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, 'Aminu Lukmon');
+lufthansa.book(635, 'Jamiu Alimi');
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const book = lufthansa.book;
+// Does NOT work
+// book(123, 'Sarah Williams');
+
+//Call method
+book.call(eurowings, 23, 'Sarah Williams');
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Mary Cooper');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 583, 'Mary Cooper');
+console.log(swiss);
+
+//Apply method
+
+const flightData = [583, 'George Cooper'];
+book.apply(swiss, flightData);
+console.log(swiss);
+
+book.call(swiss, ...flightData); // Is the same as apply method
+console.log(swiss);
+
+// Bind Method
+// book.call(eurowings, 23, 'Sarah Williams');
+
+const bookEW = book.bind(eurowings);
+bookEW(23, 'Stevens William');
